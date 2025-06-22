@@ -1,0 +1,85 @@
+// ============================================================================
+// core/build.gradle  ─  Build definition for the HyperLinker "core" micro‑service
+// ----------------------------------------------------------------------------
+//  * Domain:  Write‑side business logic, persistence, event production
+//  * Responsibilities:
+//      – Hosts REST endpoints for link management (create / delete / analytics)
+//      – Persists Url, ClickRaw, DeletionRequest entities to PostgreSQL
+//      – Publishes LinkCreated events to Kafka
+//      – Runs Flyway DB migrations on startup
+// ============================================================================
+
+plugins {
+    // Brings Spring Boot tasks (bootRun, bootJar) & dependency version alignment
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+    id 'com.bakdata.avro' version '1.5.0'
+}
+
+// ---------------------------------------------------------------------------
+// Dependencies
+// ---------------------------------------------------------------------------
+
+dependencies {
+    /*
+     * ───── Project modules ────────────────────────────────────────────────
+     */
+    implementation project(':common')
+
+    implementation 'org.apache.commons:commons-compress:1.27.1'
+    implementation 'io.confluent:kafka-avro-serializer:7.9.1'
+
+    /*
+     * ───── Spring starters ────────────────────────────────────────────────
+     */
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'   // JPA & Hibernate
+    implementation 'org.springframework.boot:spring-boot-starter-kafka'      // Kafka producer
+    implementation 'org.springframework.boot:spring-boot-starter-validation' // Bean Validation (Jakarta)
+
+    /*
+     * ───── DB & Migrations ────────────────────────────────────────────────
+     */
+    implementation 'org.flywaydb:flyway-core'
+    runtimeOnly   'org.postgresql:postgresql'
+
+    /*
+     * ───── Testing ────────────────────────────────────────────────────────
+     */
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.testcontainers:postgresql:1.21.2'
+    testImplementation 'org.testcontainers:kafka:1.21.2'
+}
+
+// ---------------------------------------------------------------------------
+// Task Tweaks
+// ---------------------------------------------------------------------------
+
+// The default jar created by the Java plugin is not needed once bootJar exists.
+jar { enabled = false }
+
+/*
+ * Attach useful metadata to the executable boot jar.
+ */
+bootJar {
+    archiveFileName = 'core.jar'
+    manifest {
+        attributes 'Main-Class': 'com.example.core.CoreApplication'
+    }
+}
+
+
+// ---------------------------------------------------------------------------
+// Flyway – no extra Gradle plugin; we rely on Spring Boot auto‑run at startup.
+// ---------------------------------------------------------------------------
+
+/*
+ * Validate migrations during the Gradle build phase, uncomment
+ * the block below and apply "org.flywaydb.flyway" plugin.
+ *
+ * flyway {
+ *     url      = "jdbc:postgresql://localhost:5433/core_db"
+ *     user     = "core_user"
+ *     password = "core_pass"
+ *     locations = ["classpath:db/migration"]
+ * }
+ */

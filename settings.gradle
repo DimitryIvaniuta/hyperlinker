@@ -1,0 +1,18 @@
+// Centralised plugin & dependency resolution
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS) // single source of truth
+    repositories {
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'hyperlinker'
+include 'common', 'api', 'core', 'edge', 'analytics'
