@@ -2,7 +2,6 @@ package com.github.dimitryivaniuta.core;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -28,10 +27,8 @@ public class CoreApplication {
      * Application entry point for the Core service.
      *
      * @param args standard Java command-line arguments
-     * @return the Spring application context
      */
-    @SuppressWarnings("resource")
-    public static ConfigurableApplicationContext main(String[] args) {
-        return SpringApplication.run(CoreApplication.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(CoreApplication.class, args);
     }
 }

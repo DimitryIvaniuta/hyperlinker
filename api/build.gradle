@@ -9,11 +9,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     // Kafka support: adds Kafka auto-config and KafkaProperties
-//    implementation 'org.springframework.boot:spring-boot-starter-kafka'
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.springframework:spring-tx'   // Provides @EnableTransactionManagement
-    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
-    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    implementation 'org.modelmapper:modelmapper:3.2.4'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

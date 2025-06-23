@@ -19,6 +19,16 @@ tasks.named("configureCopyExternalAvroResources").configure {
             "bakdata-avro plugin’s resource-copy task not yet cache-compatible"
     )
 }
+tasks.named("generateAvroJava").configure {
+    notCompatibleWithConfigurationCache(
+            "bakdata-avro plugin’s Java-generation task not yet cache-compatible"
+    )
+}
+tasks.named("generateTestAvroJava").configure {
+    notCompatibleWithConfigurationCache(
+            "bakdata-avro plugin’s test-codegen task not yet cache-compatible"
+    )
+}
 
 import com.github.davidmc24.gradle.plugin.avro.GenerateAvroJavaTask
 
@@ -50,5 +60,4 @@ avro {
 jar { enabled = false }
 bootJar {
     archiveFileName = 'analytics.jar'
-    manifest { attributes 'Main-Class': 'com.github.dimitryivaniuta.analytics.AnalyticsApplication' }
 }

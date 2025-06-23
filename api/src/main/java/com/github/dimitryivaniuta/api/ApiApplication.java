@@ -29,14 +29,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class ApiApplication {
 
     /**
-     * Application entry‑point.
+     * Main method to launch the Spring Boot application.
      *
-     * @param args standard command‑line arguments (none required)
-     * @return never returns under normal circumstances; the JVM stays alive
-     *         until Spring Context shutdown.
+     * @param args command-line arguments (ignored)
      */
-    @SuppressWarnings("resource") // we deliberately don’t close the context here
-    public static ConfigurableApplicationContext main(String[] args) {
-        return SpringApplication.run(ApiApplication.class, args);
+    public static void main(String[] args) {
+        SpringApplication.run(ApiApplication.class, args);
     }
 }

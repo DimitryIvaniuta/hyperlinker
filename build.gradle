@@ -1,6 +1,6 @@
 plugins {
-    id 'org.springframework.boot' version '3.3.0' apply false
-    id 'io.spring.dependency-management' version '1.1.5'
+    id 'org.springframework.boot' version '3.5.1' apply false
+    id 'io.spring.dependency-management' version '1.1.7'
 }
 
 group   = 'com.github'
@@ -8,9 +8,8 @@ version = '0.1.0-SNAPSHOT'
 
 ext {
     javaVersion      = JavaVersion.VERSION_21
-    lombokVersion    = '1.18.32'
-    mapstructVersion = '1.5.5.Final'
-    junitVersion     = '5.10.2'
+    lombokVersion    = '1.18.38'
+    junitVersion     = '5.13.1'
 }
 
 // Universal configuration for all subprojects
@@ -40,6 +39,18 @@ subprojects {
     jacocoTestReport {
         dependsOn test
         reports { xml.required = true; html.required = true }
+    }
+
+    tasks.matching { Task t ->
+        // cover both modules: copy & generate, main & test
+        ['configureCopyExternalAvroResources',
+         'configureCopyTestExternalAvroResources',
+         'generateAvroJava',
+         'generateTestAvroJava'].contains(t.name)
+    }.configureEach {
+        notCompatibleWithConfigurationCache(
+                "bakdata-avro plugin task '${it.name}' not yet configuration-cache compatible"
+        )
     }
 
 }
