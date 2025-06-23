@@ -1,0 +1,12 @@
+{
+  "namespace": "com.github.dimitryivaniuta.avro",
+  "type": "record",
+  "name": "ClickLoggedEvent",
+  "doc":  "Edge redirect captured for analytics.",
+  "fields": [
+    { "name": "urlId",      "type": "long" },
+    { "name": "occurredAt", "type": { "type": "long", "logicalType": "timestamp-millis" } },
+    { "name": "country",    "type": [ "null", "string" ], "default": null },
+    { "name": "device",     "type": [ "null", "string" ], "default": null }
+  ]
+}

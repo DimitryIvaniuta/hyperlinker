@@ -1,4 +1,7 @@
-// Centralised plugin & dependency resolution
+// ---------------------------------------------------------------------------
+// HyperLinker – Gradle settings  (Gradle 8.14)
+// ---------------------------------------------------------------------------
+
 pluginManagement {
     repositories {
         mavenCentral()
@@ -7,11 +10,12 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-//    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS) // single source of truth
     repositories {
         mavenCentral()
+        maven { url 'https://packages.confluent.io/maven/' }
     }
+
 }
 
 rootProject.name = 'hyperlinker'

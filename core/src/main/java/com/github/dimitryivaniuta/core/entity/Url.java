@@ -67,7 +67,7 @@ public class Url {
     private Instant createdAt;
 
     /**
-     * Optional expiry timestamp.  Redirects past this time return HTTP 410.
+     * Optional expiry timestamp.  Redirects past this time return HTTP 410.
      */
     @Column(name = "expires_at")
     private Instant expiresAt;

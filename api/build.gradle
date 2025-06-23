@@ -1,0 +1,52 @@
+// ============================================================================
+// api/build.gradle  –  HyperLinker API micro‑service (June 2025)
+// ----------------------------------------------------------------------------
+// Exposes REST + WebFlux endpoints, JWT security, and OpenAPI 3 docs.
+// ============================================================================
+
+plugins {
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+}
+
+dependencies {
+    /* --------------------------------------------------------------------- */
+    /* Project module                                                          */
+    /* --------------------------------------------------------------------- */
+    implementation project(':common')
+
+    /* --------------------------------------------------------------------- */
+    /* Spring Starters                                                         */
+    /* --------------------------------------------------------------------- */
+    implementation 'org.springframework.boot:spring-boot-starter-web'          // MVC + JSON
+    implementation 'org.springframework.boot:spring-boot-starter-validation'   // Jakarta Bean Validation
+    implementation 'org.springframework.boot:spring-boot-starter-kafka'
+    implementation 'org.springframework.boot:spring-boot-starter-security'     // JWT & CSRF
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'     // health, metrics
+    implementation 'org.springframework:spring-tx'   // Provides @EnableTransactionManagement
+
+    /* --------------------------------------------------------------------- */
+    /* API documentation (OpenAPI UI)                                         */
+    /* --------------------------------------------------------------------- */
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+
+    /* --------------------------------------------------------------------- */
+    /* Mapping – MapStruct (uses ext.mapstructVersion from root build)        */
+    /* --------------------------------------------------------------------- */
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+    /* --------------------------------------------------------------------- */
+    /* Testing                                                                */
+    /* --------------------------------------------------------------------- */
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.testcontainers:junit-jupiter:1.21.2'
+}
+
+// Disable the plain JAR; keep only the executable Boot jar
+jar { enabled = false }
+
+bootJar {
+    archiveFileName = 'api.jar'
+    manifest.attributes 'Main-Class': 'com.github.dimitryivaniuta.api.ApiApplication'
+}

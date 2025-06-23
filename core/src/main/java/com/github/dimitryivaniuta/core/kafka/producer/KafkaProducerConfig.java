@@ -6,12 +6,16 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+//import org.springframework.boot.ssl.SslBundles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
+import org.springframework.kafka.support.serializer.JsonSerializer;
+//import org.springframework.boot.autoconfigure.kafka.KafkaProperties.SslBundles;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties.SslBundles;
 
 import java.util.Map;
 
@@ -38,7 +42,8 @@ public class KafkaProducerConfig {
      */
     @Bean
     public ProducerFactory<String, LinkCreatedEvent> linkProducerFactory() {
-        Map<String, Object> props = kafkaProps.buildProducerProperties();
+//        Map<String, Object> props = kafkaProps.buildProducerProperties();
+        Map<String, Object> props = kafkaProps.buildProducerProperties((SslBundles) null);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class.getName());
         // Ensure JSON excludes type headers for consumers using default deserializer

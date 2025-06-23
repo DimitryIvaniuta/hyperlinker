@@ -1,0 +1,47 @@
+//buildscript {
+//    repositories {
+//        mavenCentral()
+//    }
+//    dependencies {
+//        classpath "com.bakdata.avro:com.bakdata.avro.gradle.plugin:1.5.0"
+//    }
+//}
+plugins {
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+//    id 'com.bakdata.avro' version '1.5.0'   // to generate Avro POJOs for event consumption
+}
+//apply plugin: 'com.bakdata.avro'
+
+dependencies {
+    /* Project module */
+    implementation project(':common')
+
+    /* Spring & Kafka */
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    /* Avro SerDes */
+    implementation 'io.confluent:kafka-avro-serializer:7.9.1'
+
+    /* Postgres persistence */
+    runtimeOnly 'org.postgresql:postgresql'
+
+    /* Testing */
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.testcontainers:kafka:1.21.2'
+    testImplementation 'org.testcontainers:postgresql:1.21.2'
+}
+
+//avro {
+//    stringType = "String"
+//    createSetters = false
+//}
+
+jar { enabled = false }
+
+bootJar {
+    archiveFileName = 'analytics.jar'
+    manifest.attributes 'Main-Class': 'com.github.dimitryivaniuta.analytics.AnalyticsApplication'
+}
