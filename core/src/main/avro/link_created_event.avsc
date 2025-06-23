@@ -20,7 +20,7 @@
         "type": "long",
         "logicalType": "timestamp-millis"
       },
-      "doc": "UTC timestamp when the link was created"
+      "doc": "UTC timestamp when the link was created."
     }
   ]
 }

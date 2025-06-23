@@ -14,7 +14,19 @@ plugins {
 
 // Apply the Avro plugin
 apply plugin: 'com.bakdata.avro'
+tasks.named("configureCopyExternalAvroResources").configure {
+    notCompatibleWithConfigurationCache(
+            "bakdata-avro plugin’s resource-copy task not yet cache-compatible"
+    )
+}
 
+import com.github.davidmc24.gradle.plugin.avro.GenerateAvroJavaTask
+
+tasks.withType(GenerateAvroJavaTask).configureEach {
+    notCompatibleWithConfigurationCache(
+            'Avro plugin not yet configuration-cache compatible'
+    )
+}
 dependencies {
     implementation project(':common')
     implementation 'org.springframework.kafka:spring-kafka'

@@ -45,12 +45,12 @@ dependencies {
     testImplementation 'org.apache.commons:commons-compress:1.27.1'
 }
 
-//avro {
+avro {
     // default src/main/avro; uncomment if using resources folder
     // sourceDirs.from('src/main/resources/avro')
-//    stringType.set('String')
-//    createSetters = false
-//}
+    stringType.set('String')
+    createSetters = false
+}
 
 jar { enabled = false }
 bootJar {

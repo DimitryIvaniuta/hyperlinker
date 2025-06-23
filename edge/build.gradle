@@ -11,7 +11,14 @@ dependencies {
     runtimeOnly   'org.postgresql:postgresql'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.testcontainers:kafka:1.21.2'
+
+    testImplementation('org.testcontainers:kafka:1.21.2') {
+        // Drop the old, vulnerable commons-compress
+        exclude group: 'org.apache.commons', module: 'commons-compress'
+    }
+
+    // Bring in the patched version
+    testImplementation 'org.apache.commons:commons-compress:1.27.1'
     testImplementation 'com.redis:testcontainers-redis:2.2.4'
     testImplementation 'org.testcontainers:postgresql:1.21.2'
 }

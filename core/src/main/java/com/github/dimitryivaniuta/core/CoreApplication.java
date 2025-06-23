@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * <h3>Annotations</h3>
  * <ul>
  *   <li>{@link SpringBootApplication} &mdash; activates auto-config,
- *       component scanning for com.example.core and sub-packages.</li>
+ *       component scanning for com.github.dimitryivaniuta.core and sub-packages.</li>
  *   <li>{@link EnableTransactionManagement} &mdash; allows database
  *       transactions via @Transactional annotations.</li>
  * </ul>

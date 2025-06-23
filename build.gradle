@@ -42,13 +42,6 @@ subprojects {
         reports { xml.required = true; html.required = true }
     }
 
-    // Avro plugin tasks should skip configuration cache
-//    plugins.withId('com.bakdata.avro') {
-//        def avroClass = Class.forName('com.github.davidmc24.gradle.plugin.avro.GenerateAvroJavaTask')
-//        tasks.withType(avroClass).configureEach {
-//            it.notCompatibleWithConfigurationCache('bakdata-avro plugin not compatible')
-//        }
-//    }
 }
 
 // Apply Spring Boot to service modules only

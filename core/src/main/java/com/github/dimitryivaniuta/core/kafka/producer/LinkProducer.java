@@ -1,6 +1,6 @@
 package com.github.dimitryivaniuta.core.kafka.producer;
 
-import com.github.dimitryivaniuta.core.event.LinkCreatedEvent;
+import com.github.dimitryivaniuta.avro.LinkCreatedEvent;
 import com.github.dimitryivaniuta.core.kafka.producer.KafkaProducerConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.kafka.core.KafkaTemplate;
