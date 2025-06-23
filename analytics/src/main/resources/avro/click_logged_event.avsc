@@ -2,11 +2,32 @@
   "namespace": "com.github.dimitryivaniuta.avro",
   "type": "record",
   "name": "ClickLoggedEvent",
-  "doc":  "Edge redirect captured for analytics.",
+  "doc": "Produced by the edge service upon redirect, consumed by analytics.",
   "fields": [
-    { "name": "urlId",      "type": "long" },
-    { "name": "occurredAt", "type": { "type": "long", "logicalType": "timestamp-millis" } },
-    { "name": "country",    "type": [ "null", "string" ], "default": null },
-    { "name": "device",     "type": [ "null", "string" ], "default": null }
+    {
+      "name": "urlId",
+      "type": "long",
+      "doc": "Foreign key back to the URLs table"
+    },
+    {
+      "name": "occurredAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp when the click occurred"
+    },
+    {
+      "name": "country",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Two-letter ISO country code"
+    },
+    {
+      "name": "device",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Device family (e.g., mobile, desktop)"
+    }
   ]
 }

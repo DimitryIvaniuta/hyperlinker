@@ -1,6 +1,5 @@
 package com.github.dimitryivaniuta.api;
 
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -24,7 +23,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *       turns on component scanning, auto‑config, and property support.</li>
  * </ul>
  */
-@SpringBootApplication(scanBasePackages = "com.github")
+@SpringBootApplication(scanBasePackages = "com.github.dimitryivaniuta.api")
 @EnableScheduling
 @EnableTransactionManagement
 public class ApiApplication {

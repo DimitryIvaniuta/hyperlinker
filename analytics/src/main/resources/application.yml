@@ -1,0 +1,29 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: analytics-service
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:analytics-db}:5446/${DB_NAME:analytics_db}
+    username: ${DB_USER:analytics_user}
+    password: ${DB_PASS:analytics_pass}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      group-id: analytics-service
+      properties:
+        schema.registry.url: http://schema-registry:8081
+        specific.avro.reader: true
+
+logging:
+  level:
+    root: INFO
+    com.github.dimitryivaniuta.analytics: DEBUG

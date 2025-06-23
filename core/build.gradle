@@ -1,54 +1,48 @@
-// ============================================================================
-// core/build.gradle  –  HyperLinker CORE micro‑service (June 2025)
-// ============================================================================
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        // Correct coordinates for the Avro Gradle plugin
+        classpath "com.bakdata.avro:com.bakdata.avro.gradle.plugin:1.5.0"
+    }
+}
 
 plugins {
     id 'org.springframework.boot'
     id 'io.spring.dependency-management'
-    // Modern Avro generator (bakdata) – generates sources under build/generated/avro
 //    id 'com.bakdata.avro' version '1.5.0'
 }
 
-dependencies {
-    /* Project modules */
-    implementation project(':common')
+// 3) Now apply the Avro plugin you just loaded
+apply plugin: 'com.bakdata.avro'
 
-    /* Spring */
+dependencies {
+    implementation project(':common')
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.apache.kafka:kafka-clients:4.0.0'
+    implementation 'org.springframework.boot:spring-boot-autoconfigure:3.3.0'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-    /* DB */
     implementation 'org.flywaydb:flyway-core'
     runtimeOnly   'org.postgresql:postgresql'
-
-    /* Avro Serializer (Kafka) */
     implementation 'io.confluent:kafka-avro-serializer:7.9.1'
-
-    /* Testing */
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:3.3.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation('org.testcontainers:postgresql:1.21.2') {
-        // Remove vulnerable transitive commons-compress
-        exclude group: 'org.apache.commons', module: 'commons-compress'
-    }
+    testImplementation 'org.testcontainers:postgresql:1.21.2'
     testImplementation 'org.testcontainers:kafka:1.21.2'
-    // Patched commons-compress to satisfy CVE-2024‑25710/26308
     testImplementation 'org.apache.commons:commons-compress:1.27.1'
 }
 
-// ---------------------------------------------------------------------------
-// Avro plugin configuration
-// ---------------------------------------------------------------------------
-/*avro {
-    source("src/main/resources/avro")     // custom schema folder
-    stringType.set("String")               // use java.lang.String
-    createSetters.set(false)               // keep immutable POJOs
-}*/
+//avro {
+    // default src/main/avro; uncomment if using resources folder
+    // sourceDirs.from('src/main/resources/avro')
+//    stringType.set('String')
+//    createSetters.set(false)
+//}
 
-// Disable plain jar, keep only bootJar
 jar { enabled = false }
-
 bootJar {
     archiveFileName = 'core.jar'
-    manifest.attributes 'Main-Class': 'com.github.dimitryivaniuta.core.CoreApplication'
+    manifest { attributes 'Main-Class': 'com.github.dimitryivaniuta.core.CoreApplication' }
 }

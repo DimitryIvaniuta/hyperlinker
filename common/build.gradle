@@ -1,12 +1,8 @@
-// ---------------------------------------------------------------------------
-// Common utilities & DTOs – pure library (no Spring Boot runtime)
-// ---------------------------------------------------------------------------
 plugins {
-    id 'java-library'                     // exposes public API to other modules
-    id 'io.spring.dependency-management'  // still use BOM alignment from parent
+    id 'java-library'
+    id 'io.spring.dependency-management'
 }
 
 dependencies {
-    /* Validation annotations used in DTOs (e.g., @NotBlank) */
-    api 'jakarta.validation:jakarta.validation-api:3.1.1'
+    api 'jakarta.validation:jakarta.validation-api:3.0.2'
 }

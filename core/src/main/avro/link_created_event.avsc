@@ -1,0 +1,26 @@
+{
+  "namespace": "com.github.dimitryivaniuta.avro",
+  "type": "record",
+  "name": "LinkCreatedEvent",
+  "doc": "Emitted when a shortened link is created.",
+  "fields": [
+    {
+      "name": "urlId",
+      "type": "long",
+      "doc": "Primary key of the newly created URL"
+    },
+    {
+      "name": "alias",
+      "type": "string",
+      "doc": "Slug of the shortened URL, used as Kafka message key"
+    },
+    {
+      "name": "createdAt",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "UTC timestamp when the link was created"
+    }
+  ]
+}

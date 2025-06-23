@@ -1,21 +1,17 @@
-// ---------------------------------------------------------------------------
-// HyperLinker – Gradle settings  (Gradle 8.14)
-// ---------------------------------------------------------------------------
-
 pluginManagement {
     repositories {
-        mavenCentral()
         gradlePluginPortal()
+        mavenCentral()
     }
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS) // single source of truth
+    // Allow project-level repos (e.g. Avro plugin’s injections)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         mavenCentral()
         maven { url 'https://packages.confluent.io/maven/' }
     }
-
 }
 
 rootProject.name = 'hyperlinker'
