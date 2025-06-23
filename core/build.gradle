@@ -15,7 +15,19 @@ plugins {
 
 // Apply the Avro plugin
 apply plugin: 'com.bakdata.avro'
+tasks.named("configureCopyExternalAvroResources").configure {
+    notCompatibleWithConfigurationCache(
+            "bakdata-avro plugin’s resource-copy task not yet cache-compatible"
+    )
+}
 
+import com.github.davidmc24.gradle.plugin.avro.GenerateAvroJavaTask
+
+tasks.withType(GenerateAvroJavaTask).configureEach {
+    notCompatibleWithConfigurationCache(
+            'Avro plugin not yet configuration-cache compatible'
+    )
+}
 dependencies {
     implementation project(':common')
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -33,12 +45,12 @@ dependencies {
     testImplementation 'org.apache.commons:commons-compress:1.27.1'
 }
 
-avro {
+//avro {
     // default src/main/avro; uncomment if using resources folder
     // sourceDirs.from('src/main/resources/avro')
-    stringType.set('String')
-    createSetters = false
-}
+//    stringType.set('String')
+//    createSetters = false
+//}
 
 jar { enabled = false }
 bootJar {
