@@ -11,10 +11,9 @@ buildscript {
 plugins {
     id 'org.springframework.boot'
     id 'io.spring.dependency-management'
-//    id 'com.bakdata.avro' version '1.5.0'
 }
 
-// 3) Now apply the Avro plugin you just loaded
+// Apply the Avro plugin
 apply plugin: 'com.bakdata.avro'
 
 dependencies {
@@ -34,12 +33,12 @@ dependencies {
     testImplementation 'org.apache.commons:commons-compress:1.27.1'
 }
 
-//avro {
+avro {
     // default src/main/avro; uncomment if using resources folder
     // sourceDirs.from('src/main/resources/avro')
-//    stringType.set('String')
-//    createSetters.set(false)
-//}
+    stringType.set('String')
+    createSetters = false
+}
 
 jar { enabled = false }
 bootJar {

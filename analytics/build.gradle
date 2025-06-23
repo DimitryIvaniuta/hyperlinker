@@ -1,15 +1,26 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        // Correct coordinates for the Avro Gradle plugin
+        classpath "com.bakdata.avro:com.bakdata.avro.gradle.plugin:1.5.0"
+    }
+}
 plugins {
     id 'org.springframework.boot'
     id 'io.spring.dependency-management'
-//    id 'com.bakdata.avro' version '1.5.0'
 }
+
+// Apply the Avro plugin
+apply plugin: 'com.bakdata.avro'
 
 dependencies {
     implementation project(':common')
     implementation 'org.springframework.kafka:spring-kafka'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'io.confluent:kafka-avro-serializer:7.5.1'
+    implementation 'io.confluent:kafka-avro-serializer:7.9.1'
     runtimeOnly   'org.postgresql:postgresql'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -17,12 +28,12 @@ dependencies {
     testImplementation 'org.testcontainers:postgresql:1.21.2'
 }
 
-//avro {
+avro {
     // default src/main/avro; adjust if needed:
     // sourceDirs.from('src/main/resources/avro')
-//    stringType.set('String')
-//    createSetters.set(false)
-//}
+    stringType.set('String')
+    createSetters = false
+}
 
 jar { enabled = false }
 bootJar {
